@@ -2,11 +2,13 @@
 
 namespace App\Magnita\Swagger;
 
+
 use App\Magnita\Swagger\Infrastructure\Console\GenerateDocumentation;
 use Illuminate\Support\ServiceProvider;
 
 class SwaggerServiceProvider extends ServiceProvider
 {
+
 
     private array $consoleCommands = [
         GenerateDocumentation::class
@@ -41,5 +43,9 @@ class SwaggerServiceProvider extends ServiceProvider
     }
 
 
+    public function boot(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/Infrastructure/Database/migrations');
+    }
 
 }
