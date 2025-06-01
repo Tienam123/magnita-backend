@@ -2,6 +2,10 @@ APP_CONTAINER := magnita-new-app
 
 # Run docker-compose
 up:
+	cd .docker && docker compose up -d
+
+# Build docker-compose
+build:
 	cd .docker && docker compose up -d --build
 
 # Stop docker-compose
