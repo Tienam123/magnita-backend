@@ -5,6 +5,7 @@ namespace App;
 use App\Magnita\Auth\AuthServiceProvider;
 use App\Magnita\Common\CommonServiceProvider;
 use App\Magnita\Common\Infrastructure\Providers\TelescopeServiceProvider;
+use App\Magnita\Swagger\SwaggerServiceProvider;
 use App\Magnita\User\UserServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
         UserServiceProvider::class,
         AuthServiceProvider::class,
         CommonServiceProvider::class,
+        SwaggerServiceProvider::class
     ];
 
     public function register():void
