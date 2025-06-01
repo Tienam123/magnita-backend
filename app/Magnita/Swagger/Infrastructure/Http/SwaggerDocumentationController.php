@@ -9,34 +9,16 @@ use App\Magnita\Swagger\Application\Service\ConfigReader;
 use App\Magnita\Swagger\Application\Service\DocumentationStorage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
-use OpenApi\Attributes as OA;
 
 class SwaggerDocumentationController
 {
     public function __construct(
-        private ConfigReader $configReader,
-        private DocumentationStorage $documentationStorage,
+        private readonly ConfigReader $configReader,
+        private readonly DocumentationStorage $documentationStorage,
     )
     {
     }
 
-    #[OA\Get(
-        path: '/swagger/documentation',
-        operationId: 'swagger.documentation.get',
-        description: 'Показывает страницу с документацией API, если включено в конфигурации.',
-        summary: 'Отображение Swagger UI',
-        tags: ['Swagger'],
-        responses: [
-            new OA\Response(
-                response: 200,
-                description: 'Страница с документацией успешно отображена (Swagger UI)'
-            ),
-            new OA\Response(
-                response: 404,
-                description: 'Документация отключена или не найдена'
-            )
-        ]
-    )]
     public function viewDocumentation():View
     {
         if (!$this->configReader->swaggerIsEnabled()) {
@@ -47,7 +29,7 @@ class SwaggerDocumentationController
         ]);
     }
 
-    public function getDocumentationJson()
+    public function getDocumentationJson():JsonResponse|View
     {
         if (! $this->configReader->swaggerIsEnabled()) {
             abort(404);
@@ -57,8 +39,6 @@ class SwaggerDocumentationController
             data: $this->documentationStorage->getContent(),
             json: true
         );
-
-
     }
 
 }
